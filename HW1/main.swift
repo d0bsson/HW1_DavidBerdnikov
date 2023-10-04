@@ -11,32 +11,48 @@ import Foundation
 var events = [String: [String]]()
 
 func insertEvent(date: String, event: String) {
-    
-    if events.index(forKey: date) == nil {
-        events[date] = [event]
-    }
+    events[date] = [event]
+    print("/n")
+    print("Вы добавили событие \(event) в дату \(date)")
     print(events)
 }
 
-insertEvent(date: "22/02/2022", event: "NewYear")
-insertEvent(date: "22/04/2023", event: "H-day")
-
 //b. Отображение событий:
 
-
 func appDict(date: String) {
-    print("Уважаемый пользователь, выберете функцию:\n1)Добавить событие в эту дату\n2)Показать событие в эту дату\n3)Выйти")
-    var userCommand = readLine()
+    print("""
+          Введите цифру:
+          1 - Добавить событие в эту дату
+          2 - Показать событие в эту дату
+          3 - Выйти
+          """)
+    let userCommand = readLine()
     
-    if userCommand == "Добавить событие в эту дату" {
-        print("Добавить событие") 
-    } else if userCommand == "Показать событие в эту дату" {
-        print("Показать событие в эту дату")
-    } else if userCommand == "Выйти" {
-        print("Выйти")
+    if userCommand == "1" {
+        print("Какое событие будет \(date)?")
+        if let event = readLine() {
+            insertEvent(date: date, event: event)
+        }
+        
+    } else if userCommand == "2" {
+        print("В какую дату показать событие?")
+        if let date = readLine() {
+            showEvents(date: date)
+        }
+        
+    } else if userCommand == "3" {
+        print("Вы вышли")
+        
     } else {
-        "Такой команды не существует"
+        print("Такой команды не существует")
     }
 }
 
-appDict(date: "22/02/2023")
+func showEvents(date: String) {
+    if let eventsOfDate = events[date] {
+        print(eventsOfDate)
+    } else {
+        print("Такой даты не существует")
+    }
+}
+appDict(date: "22/02/2022")
